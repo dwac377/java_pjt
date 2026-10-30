@@ -6,8 +6,8 @@ public class MemberService {
 	
 	MemberDB db;
 	int logInCout = 0;
-	boolean systemFlag = true;
-	flag sysflag = new flag();
+//	boolean systemFlag = true;
+	flag sysflag;
 	
 	
 	    public MemberService(MemberDB db, flag sysflag) {
@@ -21,23 +21,38 @@ public class MemberService {
 		System.out.println("Input new Member ID");
 		String userId = sc.next();
 		
-		if (db.memberDB.get(userId) != null) {
-			System.out.println("아이디 중복");
-			return;
+		while (true) {
+			Member member = db.memberDB.get(userId);
+			if (member != null) {
+				System.out.println("아이디 중복");
+				System.out.println("Input new Member ID");
+				userId = sc.next();
+			} else {
+				break;
+			}
 		}
+		
+//		if (db.memberDB.get(userId) != null) {
+//			System.out.println("아이디 중복");
+//			return;
+//		}
+		
 		
 		System.out.println("Input new Member PW");
 		String userPw = sc.next();
 		
-		if (userPw.length() <= 8) {
-			System.out.println("비밀번호가 8자리 보다 적을수 없습니다");
-			return;
+		while (true) {
+			if (userPw.length() < 8 || userPw.length() > 16) {
+				System.out.println("비밀번호는 8~16자 사이여야 한다");
+				System.out.println("Input new Member PW");
+				userPw = sc.next();
+			} else {
+				break;
+			}
+			
+			 
+			
 		}
-		if (userPw.length() >= 12) {
-			System.out.println("비밀번호는 12자리 보다 클수 없습니다");
-			return;
-		}
-		
 		
 		System.out.println("Input new Member EMAIL");
 		String userEmail = sc.next();
@@ -49,10 +64,7 @@ public class MemberService {
 
 		db.memberDB.put(userId, member);
 		db.memberDB.get(userId).printInfo();
-			
-		
-		
-//		아이디 중복 체크 기능 추가 및 비밀번호 8~12 사이까지만
+
 	}
 	
 	public void doSignIn(Scanner sc) {
@@ -66,26 +78,37 @@ public class MemberService {
 //		MemberDB db = new MemberDB();
 		Member searchedMember = db.memberDB.get(userId);
 		
-		if (searchedMember != null) {
-			if (searchedMember.userPw.equals(userPw)) {
-				System.out.println("성공");
-			} else {
-				System.out.println("실패");
-				logInCout ++;
-				System.out.println(logInCout);
+		
+		while (true) {
+			if (searchedMember != null) {
+					if (searchedMember.userPw.equals(userPw)) {
+					System.out.println("성공");
+				} else {
+					System.out.println("실패");
+					logInCout ++;
+					System.out.println("Input Member ID");
+					userId = sc.next();
+					System.out.println("Input Member PW");
+					userPw = sc.next();
+					System.out.println(logInCout);
 				
+				}
+			} else {
+				System.out.println("아이디 없음");
+				logInCout ++;
+				System.out.println("Input Member ID");
+				userId = sc.next();
+				System.out.println("Input Member PW");
+				userPw = sc.next();
+				System.out.println(logInCout);
 			}
-		} else {
-			System.out.println("아이디 없음");
-			logInCout ++;
-			System.out.println(logInCout);
-		}
 		
-		if (logInCout > 3) {
-			System.out.println("로그인 실패 3회 초과");
-			sysflag.flag = false;
+			if (logInCout > 3) {
+				System.out.println("로그인 실패 3회 초과");
+				sysflag.flag = false;
+				break;
 		}
-		
+		}
 //		로그인 실패가 4회 이상이면 시스템 종료
 	}
 	

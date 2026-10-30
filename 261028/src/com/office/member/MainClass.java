@@ -1,5 +1,6 @@
 package com.office.member;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -8,37 +9,50 @@ public class MainClass {
 
 	public static void main(String[] args) {
 		
+		
+		
 		Scanner sc = new Scanner(System.in);
 		MemberDB memberdb = new MemberDB();
 		MemberDumy memberDumy = new MemberDumy(memberdb);
 		memberDumy.initDumyData();
 		flag sysflag = new flag();
 		MemberService memberSevice = new MemberService(memberdb, sysflag);
-		
-//		더미 데이터 초기화는 개발환경과 실환경으로 구분해야 한다
-		
-		final int SIGN_UP = 1;
-		final int SIGN_IN = 2;
-		final int MODIFY = 3;
-		final int DIL = 4;
+
 
 		while (sysflag.flag == true) {
-			System.out.println("1. 회원가입   2번. 로그인   3번. 정보 수정   4번. 삭제    을 제외한 아무 키나 눌러 시스템 종료");
+			System.out.println("1. 회원가입   2번. 로그인   3번. 정보 수정   4번. 회원 정보   5. 삭제    을 제외한 아무 키나 눌러 시스템 종료");
 			int selectedMenu =  sc.nextInt();
 			
 			switch (selectedMenu) {
-			case SIGN_UP :
+			case Menu.SIGN_UP :
 //				memberSevice = new MemberSevice();
 				memberSevice.doSignUp(sc);
 				break;
-			case SIGN_IN :
+			case Menu.SIGN_IN :
 //				memberSevice = new MemberSevice();
 				memberSevice.doSignIn(sc);
 				break;
-			case MODIFY :
+			case Menu.MODIFY :
 				memberSevice.doModify(sc);
 				break;
-			case DIL :
+			case Menu.ALL_INFO :
+				HashMap<String, Member> db = memberdb.memberDB;
+				db.keySet();
+				for (String key : db.keySet()) {
+					Member member = db.get(key);
+					System.out.println(member.userId);
+					System.out.println(member.userPw);
+					System.out.println(member.userEmail);
+					System.out.println(member.poneNum);
+				}
+				for (Member member : db.values()) {
+					System.out.println(member.userId);
+					System.out.println(member.userPw);
+					System.out.println(member.userEmail);
+					System.out.println(member.poneNum);
+				}
+				break;
+			case Menu.DIL :
 				memberSevice.doDelete(sc);
 				break;
 
