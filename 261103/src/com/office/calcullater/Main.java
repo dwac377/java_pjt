@@ -12,7 +12,7 @@ public class Main {
 		
 		calcullaterClass.calculate(20, 50, calAdd);
 		calcullaterClass.calculate(20, 50, calsub);
-		calcullaterClass.calculate(321, 321, new calMultiply());
+		calcullaterClass.calculate(321, 0, new calMultiply());
 		calcullaterClass.calculate(1000, 213, new calDiv());
 		
 	}
