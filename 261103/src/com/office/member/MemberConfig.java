@@ -6,5 +6,7 @@ public interface MemberConfig {
 	final int SIGN_IN = 2;
 	final int MODIFY = 3;
 	final int DELETE = 4;
+	
+	final boolean IS_DEV = true;
 
 }

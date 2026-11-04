@@ -12,6 +12,16 @@ public class MemberController implements MemberConfig {
 		
 		MemberService memberService = new MemberService();
 		
+		String memId;
+		String memPw;
+		String memEmail;
+		String memPoneNum;
+		MemberDto memberDto;
+		
+		if (IS_DEV)
+			new Dumy().sigUpForDumy(memberService);
+		
+		
 		boolean systemFlag = true;
 		
 		while (systemFlag) {
@@ -22,22 +32,28 @@ public class MemberController implements MemberConfig {
 			
 			case SIGN_UP:
 				System.out.println("새로운 아이디 입력하라!");
-				String memId = sc.next();
+				memId = sc.next();
 				System.out.println("새로운 비밀 번호 입력하라!");
-				String memPw = sc.next();
+				memPw = sc.next();
 				System.out.println("이메일 입력하라!");
-				String memEmail = sc.next();
+				memEmail = sc.next();
 				System.out.println("전화 번호 입력하라!");
-				String memPoneNum = sc.next();
+				memPoneNum = sc.next();
 				
-				MemberDto memberDto = new MemberDto(memId, memPw, memEmail, memPoneNum);
+				memberDto = new MemberDto(memId, memPw, memEmail, memPoneNum);
 				
 				memberService.signUp(memberDto);
 				break;
 				
 			case SIGN_IN:
+				System.out.println("아이디 입력하라!");
+				memId = sc.next();
+				System.out.println("비밀 번호 입력하라!");
+				memPw = sc.next();
 				
+				memberDto = new MemberDto(memId, memPw, null, null);
 				
+				memberService.signIn(memberDto);
 				
 				break;
 				
@@ -48,8 +64,14 @@ public class MemberController implements MemberConfig {
 				break;
 				
 			case DELETE:
+				System.out.println("아이디 입력하라!");
+				memId = sc.next();
+				System.out.println("비밀 번호 입력하라!");
+				memPw = sc.next();
 				
+				memberDto = new MemberDto(memId, memPw, null, null);
 				
+				memberService.delete(memberDto);
 				
 				break;
 

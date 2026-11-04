@@ -7,7 +7,7 @@ public class MemberService implements IMemberService{
 	@Override
 	public void signUp(MemberDto memberDto) {
 		
-		boolean isMember = MemberDao.isMember(memberDto.getMemId());
+		boolean isMember = memberDao.isMember(memberDto.getMemId());
 		
 		if (!isMember) {
 			int result = memberDao.insertNewMember(memberDto);
@@ -24,23 +24,36 @@ public class MemberService implements IMemberService{
 	}
 
 	@Override
-	public void signIn() {
+	public void signIn(MemberDto memberDto) {
+		
+		MemberDto searchedMemberDto =
+				memberDao.searchMemberByMemIdAndMemPw(memberDto);
+		
+		if (searchedMemberDto != null) {
+			System.out.println("로그인 성공");
+		} else {
+			System.out.println("로그인 실패");
+		}
+		
+	}
+
+	@Override
+	public void modify(MemberDto memberDto) {
 		
 		
 		
 	}
 
 	@Override
-	public void modify() {
+	public void delete(MemberDto memberDto) {
 		
+		MemberDto deletedMemberDto = memberDao.deleteMemberByMemIdAndMemPw(memberDto);
 		
-		
-	}
-
-	@Override
-	public void delete() {
-		
-		
+		if (deletedMemberDto != null) {
+			System.out.println("삭제 완료");
+		} else {
+			System.out.println("존재하지 않다");
+		}
 		
 	}
 	
