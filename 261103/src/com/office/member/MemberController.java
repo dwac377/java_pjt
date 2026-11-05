@@ -6,11 +6,14 @@ public class MemberController implements MemberConfig {
 	
 	public void execute() {
 		
-		Scanner sc = new Scanner(System.in);
-//		MemberService memberService =
-//				new MemberService();
+//		MemberService memberService = new MemberService();
 		
-		MemberService memberService = new MemberService();
+		final private MemberService memberService =
+				MemberContainer.getInstance().getMemberService();
+		
+
+		
+		Scanner sc = new Scanner(System.in);
 		
 		String memId;
 		String memPw;
