@@ -30,11 +30,4 @@ public class MemberContainer {
 	public MemberDao getMemberDao() {
 		return memberDao;
 	}
-	
-	
-
-	
-	
-	
-
 }
