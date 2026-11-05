@@ -51,10 +51,5 @@ public class MemberDto {
 	public void setMemPoneNum(String memPoneNum) {
 		this.memPoneNum = memPoneNum;
 	}
-	
-	
-	
-	
-	
 
 }

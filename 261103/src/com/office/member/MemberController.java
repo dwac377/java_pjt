@@ -25,7 +25,7 @@ public class MemberController implements MemberConfig {
 		boolean systemFlag = true;
 		
 		while (systemFlag) {
-			System.out.println("1.회원 가입 2. 로그인 3. 수정 4. 삭제 외 아무 키나 눌러 벗어나기");
+			System.out.println("1.회원 가입 2. 로그인 3. 수정 4. 삭제 외에 아무 키나 눌러 벗어나기");
 			int selectedMenuNum = sc.nextInt();
 			
 			switch (selectedMenuNum) {
@@ -58,6 +58,31 @@ public class MemberController implements MemberConfig {
 				break;
 				
 			case MODIFY:
+				
+				System.out.println("아이디 입력하라!");
+				memId = sc.next();
+				System.out.println("비밀 번호 입력하라!");
+				memPw = sc.next();
+
+				
+				memberDto = new MemberDto(memId, memPw, null, null);
+				
+				boolean isAuthentication = memberService.doAuthenticationByMemIdAndMempw(memberDto);
+				
+				if (isAuthentication) 
+					System.out.println("바꿀 이메일 입력하라!");
+					memEmail = sc.next();
+					System.out.println("바꿀 비밀 번호 입력하라!");
+					memPw = sc.next();
+					System.out.println("바꿀 전화 번호 입력하라!");
+					memPoneNum = sc.next();
+					
+					memberDto.setMemPw(memPw);
+					memberDto.setMemEmail(memEmail);
+					memberDto.setMemPoneNum(memPoneNum);
+					
+					memberService.modify(memberDto);
+				
 				
 				
 				

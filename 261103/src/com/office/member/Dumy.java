@@ -10,7 +10,7 @@ public class Dumy {
 	public void sigUpForDumy(MemberService memberService) {
 		
 		for (int i = 0; i < memIds.length; i++) {
-			MemberDto memberDto = new MemberDto(memIds[i], memPws[i], memEmils[1], memPone[1]);
+			MemberDto memberDto = new MemberDto(memIds[i], memPws[i], memEmils[i], memPone[i]);
 			memberService.signUp(memberDto);
 		}
 		

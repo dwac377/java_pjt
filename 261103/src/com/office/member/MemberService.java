@@ -3,6 +3,10 @@ package com.office.member;
 public class MemberService implements IMemberService{
 	
 	MemberDao memberDao = new MemberDao();
+	
+	public MemberService() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void signUp(MemberDto memberDto) {
@@ -10,6 +14,7 @@ public class MemberService implements IMemberService{
 		boolean isMember = memberDao.isMember(memberDto.getMemId());
 		
 		if (!isMember) {
+			
 			int result = memberDao.insertNewMember(memberDto);
 			
 			if (result == 0) {
@@ -40,7 +45,13 @@ public class MemberService implements IMemberService{
 	@Override
 	public void modify(MemberDto memberDto) {
 		
+		MemberDto updatedMemberDto = memberDao.updateMemberByMemId(memberDto);
 		
+		if (updatedMemberDto != null) {
+			System.out.println("완료");
+		} else {
+			System.out.println("실패");
+		}
 		
 	}
 
@@ -58,8 +69,14 @@ public class MemberService implements IMemberService{
 	}
 	
 	
-	public MemberService() {
-		// TODO Auto-generated constructor stub
+
+	
+
+	public boolean doAuthenticationByMemIdAndMempw(MemberDto memberDto) {
+		
+		MemberDto dto = memberDao.searchMemberByMemIdAndMemPw(memberDto);
+
+		return dto != null ? true : false;
 	}
 	
 	
