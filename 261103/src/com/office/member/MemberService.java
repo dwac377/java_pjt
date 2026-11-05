@@ -4,11 +4,11 @@ public class MemberService implements IMemberService{
 	
 //	MemberDao memberDao = new MemberDao();
 	
-	final private MemberDao memberDao =
-			MemberContainer.getInstance().getMemberDao();
 	
-	public MemberService() {
-		// TODO Auto-generated constructor stub
+	final private MemberDao memberDao;
+	
+	public MemberService(MemberDao memberDao) {
+		this.memberDao = memberDao;
 	}
 
 	@Override
