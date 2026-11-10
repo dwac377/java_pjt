@@ -17,9 +17,12 @@ public class MemberDao {
 //		매개 변수로 받은 id를 맴버 db에서 키 값 일치하는 정보가 있다면 불러온다
 //		그렇게 불러온 정보가 없다면 null임으로 거짓을 반환한다 즉 중복이 아니다.
 		HashMap<String, MemberDto> members = diaryDb.getMembers();
-		MemberDto memberDto = members.get(memId);
+		HashMap<String, MemberDto> deleteMembers = diaryDb.getDeleteMembers();
 		
-		return memberDto != null ? true : false;
+		MemberDto memberDto = members.get(memId);
+		MemberDto deleteMember = deleteMembers.get(memId);
+		
+		return memberDto != null || deleteMember != null ? true : false;
 	}
 
 //	회원 가입 메서드
@@ -42,8 +45,8 @@ public class MemberDao {
 //		매개 변수로 받은 아이디를 키 값으로 db에서 일치하는 데이터를 가져온다 있다면 !null
 //		임으로 데이터가 불러와지고 없다면 null이다.
 		HashMap<String, MemberDto> members = diaryDb.getMembers();
-//		만일 데이터가 가져와졌다면 !null임으로 members 회원 정보를 반환해준다
-		return members.get(memId) != null ? members.get(memId) : null;
+//		만일 데이터가 가져와졌다면 !null임으로 members 회원 정보를 반환해준다 
+		return members.get(memId);
 	}
 	
 	
@@ -63,9 +66,13 @@ public class MemberDao {
 	public int deleteByMemberId(String memId) {
 		
 		HashMap<String, MemberDto> members = diaryDb.getMembers();
+		HashMap<String, MemberDto> deleteMembers = diaryDb.getDeleteMembers();
+		
+		deleteMembers.put(memId, members.get(memId));
+		
 		members.remove(memId);
 		
-		return members.get(memId) == null 
+		return deleteMembers.get(memId) != null 
 				?
 				MemberService.DELETE_SUCCES 
 				:

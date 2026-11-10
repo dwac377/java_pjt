@@ -12,10 +12,12 @@ public class DiaryDb {
 
 	final private HashMap<String, MemberDto> members;
 	final private HashMap<String, ArrayList<DiaryDto>> diaries;
+	final private HashMap<String, MemberDto> deleteMembers;
 	
 	private DiaryDb() {
 		members = new HashMap<String, MemberDto>();
 		diaries = new HashMap<String, ArrayList<DiaryDto>>();
+		deleteMembers = new HashMap<String, MemberDto>();
 	}
 	
 	
@@ -36,6 +38,13 @@ public class DiaryDb {
 	public HashMap<String, ArrayList<DiaryDto>> getDiaries() {
 		return diaries;
 	}
+
+
+	public HashMap<String, MemberDto> getDeleteMembers() {
+		return deleteMembers;
+	}
+	
+	
 	
 	
 }
