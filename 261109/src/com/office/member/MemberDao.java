@@ -45,5 +45,31 @@ public class MemberDao {
 //		만일 데이터가 가져와졌다면 !null임으로 members 회원 정보를 반환해준다
 		return members.get(memId) != null ? members.get(memId) : null;
 	}
+	
+	
+	public int updateMember(MemberDto memberDto) {
+		
+
+		HashMap<String, MemberDto> members = diaryDb.getMembers();
+		members.put(memberDto.getMemId(), memberDto);
+		
+
+		return members.get(memberDto.getMemId()) != null ? 
+								MemberService.MODIFY_SUCCES
+								:
+								MemberService.MODIFY_FALE;
+	}
+
+	public int deleteByMemberId(String memId) {
+		
+		HashMap<String, MemberDto> members = diaryDb.getMembers();
+		members.remove(memId);
+		
+		return members.get(memId) == null 
+				?
+				MemberService.DELETE_SUCCES 
+				:
+				MemberService.DELETE_FALE;
+	}
 
 }

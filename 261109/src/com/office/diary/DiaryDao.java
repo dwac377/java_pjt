@@ -1,5 +1,8 @@
 package com.office.diary;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.office.db.DiaryDb;
 
 public class DiaryDao {
@@ -9,5 +12,34 @@ public class DiaryDao {
 	public DiaryDao(DiaryDb diaryDb) {
 		this.diaryDb = diaryDb;
 	}
+
+	public int insertNewDiary(String memId, DiaryDto diaryDto) {
+		
+		HashMap<String, ArrayList<DiaryDto>> diaries = diaryDb.getDiaries();
+		
+		ArrayList<DiaryDto> myDiaries = diaries.get(memId);
+		
+		if (myDiaries == null) {
+			myDiaries = new ArrayList<DiaryDto>();
+			diaries.put(memId, myDiaries);
+		}
+		
+		int beforSize = myDiaries.size();
+		myDiaries.add(0, diaryDto);
+		int afterSize = myDiaries.size();
+		
+		return beforSize < afterSize ? DiaryService.DIARY_WRITE_SUCCESS : DiaryService.DIARY_WRITE_FALL;
+//		or return afterSize - beforSize < 0;
+	}
+
+	public ArrayList<DiaryDto> selectDiariesByMemId(String memId) {
+		
+		HashMap<String, ArrayList<DiaryDto>> diaries = diaryDb.getDiaries();
+
+		
+		return diaries.get(memId);
+	}
+	
+	
 
 }

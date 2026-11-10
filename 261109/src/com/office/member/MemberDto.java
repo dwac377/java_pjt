@@ -7,6 +7,8 @@ public class MemberDto {
 	private String memEmail;
 	private String memPhone;
 	
+//	private boolean active = true;
+	
 	public MemberDto() {
 		// TODO Auto-generated constructor stub
 	}

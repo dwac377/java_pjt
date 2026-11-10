@@ -20,8 +20,9 @@ public class Session {
 		return session;
 	}
 
-	public HashMap<String, Object> getAttributies() {
-		return attributies;
+	public Object getAttribute(String name) {
+		
+		return attributies.get(name);
 	}
 	
 //	세터와 비슷하나 객체를 새로 만드는 것이 아닌 이미 있는 개체에 데이터를 넣어주는 것

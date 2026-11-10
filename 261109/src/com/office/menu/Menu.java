@@ -1,7 +1,6 @@
 package com.office.menu;
 
-import java.util.HashMap;
-
+import com.office.config.Config;
 import com.office.session.Session;
 
 public class Menu {
@@ -19,12 +18,9 @@ public class Menu {
 
 	public static void generateMenu() {
 		
-//		세션에서 로그인 상태 불러오기
-		HashMap<String, Object> attributies = Session.getInstance().getAttributies();
-		Object object = attributies.get("signInedMemberId");
 		
 //		로그인이 되어 있으면 어떠한 정보가 맵에 있을 테니 null이 아니다, 없다면 null이 된다
-		if (object != null) {
+		if (Session.getInstance().getAttribute(Config.SIGNINED_MEMBER_ID) != null) {
 			System.out.println("3.로그 아웃   4.정보 수정   5.회원 탈퇴   6.일기 쓰기   7.일기 읽기   그외 벗어나기");
 		} else {
 			System.out.println("1.회원 가입   2.로그인   아무 키를 눌러 벗어나기");
